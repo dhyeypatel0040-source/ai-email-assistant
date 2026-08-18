@@ -64,8 +64,13 @@ export default function Home() {
       
       // Redirect to Composio auth
       window.location.href = response.connection_url;
-    } catch (error: any) {
-      alert(error.message || 'Failed to create sign-in link');
+    } catch (error: unknown) {
+  const message =
+    error instanceof Error
+      ? error.message
+      : 'Failed to create sign-in link';
+
+    alert(message);
     } finally {
       setIsLoading(false);
     }

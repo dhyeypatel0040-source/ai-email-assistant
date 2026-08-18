@@ -69,7 +69,7 @@ export default function AuthButton({ onSignIn, isLoading }: AuthButtonProps) {
             <ComposioLogo />
           </div>
           <h1 className="text-3xl font-normal text-white mb-3">Enter Your Email</h1>
-          <p className="text-[#888888] mb-8">We'll create a secure connection to your Gmail account</p>
+          <p className="text-[#888888] mb-8">We&apos;ll create a secure connection to your Gmail account</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">

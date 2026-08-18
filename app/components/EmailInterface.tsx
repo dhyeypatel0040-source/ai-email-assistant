@@ -13,7 +13,7 @@ interface Email {
   messageText?: string;
   to?: string;
   threadId?: string;
-  attachmentList?: any[];
+  attachmentList?: unknown[];
   labelIds?: string[];
 }
 
@@ -43,14 +43,14 @@ export default function EmailInterface({ userEmail }: EmailInterfaceProps) {
         const messages = emailData.data?.messages || [];
         
         // Transform the email data to match our interface
-        const transformedEmails: Email[] = messages.map((email: any, index: number) => ({
+        const transformedEmails: Email[] = messages.map((email: Record<string, unknown>, index: number) => ({
           id: email.messageId || `email-${index}`,
           subject: email.subject || 'No Subject',
           sender: email.sender || 'Unknown Sender',
-          preview: email.messageText?.substring(0, 100) || '',
-          time: email.messageTimestamp ? new Date(email.messageTimestamp).toLocaleTimeString() : 'Unknown Time',
+          preview: typeof email.messageText === 'string' ? email.messageText.substring(0, 100) : '',
+          time: typeof email.messageTimestamp === 'string' ? new Date(email.messageTimestamp).toLocaleTimeString() : 'Unknown Time',
           read: true, // API doesn't provide read status, defaulting to true
-          messageText: email.messageText || '',
+          messageText: typeof email.messageText === 'string' ? email.messageText : '',
           to: email.to || '',
           threadId: email.threadId || '',
           attachmentList: email.attachmentList || [],
